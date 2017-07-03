@@ -1,0 +1,8 @@
+'''<(?P<tag>[^\s\n>]+)>(.*)</(?P=tag)'''
+// busca el contenido dentro de una etiqueta que encuentra
+
+'''<body[^>]*>(.*)</body>'''
+//Busca el contenido dentro de la etiqueta body
+
+'''<([^/>\s\n]+)'''
+// Encuentra el nombre de todas las etiquetas
