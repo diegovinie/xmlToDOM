@@ -15,5 +15,8 @@
 </AlaLevel1>
 libre
 <BurroLevel1 rel="eterno" class="btn btn-lg">
+	<cara id="h" rel="tuyo">
+		cara e tabla
+	</cara>
     jaja en BurroLevel1
 </BurroLevel1>

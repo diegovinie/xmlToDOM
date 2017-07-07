@@ -1,7 +1,9 @@
 import re, urllib, random
 
 objects = []
-
+antOb = []
+postOb = []
+post2Ob = []
 
 class newDOM(object):
     """docstring for newDOM"""
@@ -14,6 +16,16 @@ class newDOM(object):
         }
         self.nodes = []
         self.hijos = self.parseHtml(html)
+        
+    def getElementById(self, id):
+    	for ele in self.nodes:
+            try:
+                ele.attr['id']
+            except KeyError:
+                continue
+            if ele.attr['id'] == id:
+                return ele
+        return None
 
     def parseHtml(self, html):
         # Encuentra hijos en una lista[contenido][nombre]
@@ -36,10 +48,9 @@ class newDOM(object):
             except IndexError:
                 atrib = ''
             j = 0
-            attr = range(0, len(atrib))
+            attr = {}    
             for n_attr in atrib:
-                attr[j] = {n_attr[0]: n_attr[2]}
-                j += 1
+                attr[n_attr[0]] = n_attr[2]
             #listElem[n] = element(self.idCount, ele[1], cnt[0], attr)
 
             x = element(types=ele[1], html=cnt[0], attr=attr, parent=self.id)
@@ -47,10 +58,12 @@ class newDOM(object):
             y = x.tree
 
             yy.append(y)
+            self.nodes.extend(x.nodes)
             listElem.append(x)
             objects.append(x)
             n += 1
         self.tree['childrens'] = yy
+        self.nodes.extend(listElem)
         return listElem
 
 
@@ -63,6 +76,7 @@ class element(object):
         self.attr = attr
         self.parent = parent
         self.nodes = []
+        antOb.append(self.id)
         self.tree = {
             "id": self.id,
             "type": self.type,
@@ -72,6 +86,7 @@ class element(object):
             #"childrens": []
         }
         self.childrens = self.parseHijos()
+        postOb.append(self.id)
 
 
     def parseHijos(self):
@@ -94,14 +109,14 @@ class element(object):
                 atrib = re.findall(exp3 , cab[0])
             except IndexError:
                 atrib = ''
-            j = 0
-            attr = range(0, len(atrib))
+            attr = {}    
             for n_attr in atrib:
-                attr[j] = {n_attr[0]: n_attr[2]}
-                j += 1
+                attr[n_attr[0]] = n_attr[2]
+
             #listElem[n] = element(self.idCount, ele[1], cnt[0], attr, self.id)
             x = element(types=ele[1], html=cnt[0], attr=attr, parent=self.id)
-            self.nodes.extend(x.childrens)
+            #self.nodes.extend(x.childrens)
+            self.nodes.extend(x.nodes)
             listElem.append(x)
             objects.append(x)
             y = x.tree
