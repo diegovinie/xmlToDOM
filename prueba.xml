@@ -16,6 +16,7 @@
 libre
 <BurroLevel1 rel="eterno" class="btn btn-lg">
 	<cara id="h" rel="tuyo">
+		<input name="bu" value="23" />
 		cara e tabla
 	</cara>
     jaja en BurroLevel1

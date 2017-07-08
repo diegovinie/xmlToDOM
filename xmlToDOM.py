@@ -34,7 +34,9 @@ class element(object):
 
     def parseHtml(self, texthtml):
         # Encuentra hijos en una lista[contenido][nombre]
-        exp = """(<(?P<etiq>[a-z][^>\s]*).*?>.*?</(?P=etiq)>)"""
+		exp = """(<(?P<etiq>[a-z][^>\s]*).*?(?:</(?P=etiq)>|/>))"""
+		# Segunda version, atrapa no extricto xml
+		exp2 = """(<(?P<etiq>[a-z][^>\s]*)(?:.*?(?:</(?P=etiq)>)|.*?>))"""
         hijos = re.findall(exp, texthtml, re.S|re.I)
         #listElem = range(0, len(hijos))
         listElem = []
@@ -89,3 +91,10 @@ class newDOM(element):
             if ele.attr['id'] == id:
                 return ele
         return None
+
+if '__main__' == __name__:
+
+	tex = open('prueba.xml', 'r').read()
+	dom = newDOM(tex)
+
+
